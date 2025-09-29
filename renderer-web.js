@@ -1,6 +1,7 @@
 // Web uyumlu renderer.js - Mobil için optimize edildi
 
 let categorizedData = {};
+let dataIndex = {};
 let currentCategory = '';
 let currentStoryIndex = 0;
 let currentCategoryMessages = [];
@@ -31,22 +32,17 @@ async function loadData() {
     }
 
     try {
-        // Ana veriyi yükle (eğer varsa)
-        const response = await fetch('categorized_data.json');
-        if (response.ok) {
-            // Mobil veri yükleme desteği kullan
-            if (window.mobileDataLoader) {
-                categorizedData = await window.mobileDataLoader.loadWithTimeout('categorized_data.json');
-            } else {
-                categorizedData = await response.json();
-            }
-            console.log('✅ Kategorize veriler yüklendi!', Object.keys(categorizedData));
+        // Parçalanmış veri index'ini yükle
+        const indexResponse = await fetch('data/index.json');
+        if (indexResponse.ok) {
+            dataIndex = await indexResponse.json();
+            console.log('✅ Veri index'i yüklendi!', Object.keys(dataIndex));
             enableCategoryCards();
         } else {
-            throw new Error('categorized_data.json bulunamadı');
+            throw new Error('Veri index bulunamadı');
         }
     } catch (error) {
-        console.error('❌ Ana veriler yüklenemedi:', error);
+        console.error('❌ Veri index yüklenemedi:', error);
         showError('Veriler yüklenemedi. Lütfen sayfayı yenileyin.');
         disableCategoryCards();
     }
@@ -71,12 +67,36 @@ function disableCategoryCards() {
     });
 }
 
-function viewCategory(category) {
+// Lazy load kategori verisi
+async function loadCategoryData(category) {
+    if (categorizedData[category]) {
+        return categorizedData[category];
+    }
+
+    try {
+        if (dataIndex[category]) {
+            const response = await fetch(dataIndex[category].file);
+            if (response.ok) {
+                const data = await response.json();
+                categorizedData[category] = data;
+                return data;
+            }
+        }
+    } catch (error) {
+        console.error(`❌ ${category} kategorisi yüklenemedi:`, error);
+    }
+
+    return [];
+}
+
+async function viewCategory(category) {
     currentCategory = category;
-    const messages = categorizedData[category] || [];
+
+    // Kategori verilerini lazy load et
+    const messages = await loadCategoryData(category);
 
     if (messages.length === 0) {
-        showError(`${categoryNames[category]} kategorisi henüz yüklenmedi.`);
+        showError(`${categoryNames[category]} kategorisi yüklenemedi.`);
         return;
     }
 
@@ -179,17 +199,17 @@ function showPage(pageName) {
 function loadStats() {
     const container = document.getElementById('statsContainer');
 
-    // Mesaj sayılarını hesapla
-    const totalMessages = Object.values(categorizedData)
-        .reduce((sum, messages) => sum + messages.length, 0);
+    // Index'ten mesaj sayılarını hesapla
+    const totalMessages = Object.values(dataIndex)
+        .reduce((sum, category) => sum + (category.count || 0), 0);
 
     const stats = [
         { title: '📊 Toplam Mesaj', value: totalMessages.toLocaleString('tr-TR') },
         { title: '💬 Günlük Ortalama', value: Math.floor(totalMessages / 2555).toLocaleString('tr-TR') },
         { title: '📅 Birliktelik Süresi', value: '7 yıl' },
-        { title: '❤️ Romantik Mesajlar', value: (categorizedData.romantic?.length || 0).toLocaleString('tr-TR') },
-        { title: '😂 Komik Anlar', value: (categorizedData.funny?.length || 0).toLocaleString('tr-TR') },
-        { title: '🌙 Gece Sohbetleri', value: (categorizedData.midnight?.length || 0).toLocaleString('tr-TR') },
+        { title: '❤️ Romantik Mesajlar', value: (dataIndex.romantic?.count || 0).toLocaleString('tr-TR') },
+        { title: '😂 Komik Anlar', value: (dataIndex.funny?.count || 0).toLocaleString('tr-TR') },
+        { title: '🌙 Gece Sohbetleri', value: (dataIndex.midnight?.count || 0).toLocaleString('tr-TR') },
         { title: '📷 Instagram', value: '14,287' },
         { title: '✈️ Telegram', value: '281,619' },
         { title: '💚 WhatsApp', value: '8,672' }
@@ -203,12 +223,12 @@ function loadStats() {
     `).join('');
 }
 
-function showRandomStory() {
-    const categories = Object.keys(categorizedData);
+async function showRandomStory() {
+    const categories = Object.keys(dataIndex);
     if (categories.length === 0) return;
 
     const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-    const categoryMessages = categorizedData[randomCategory];
+    const categoryMessages = await loadCategoryData(randomCategory);
 
     if (categoryMessages && categoryMessages.length > 0) {
         currentStoryIndex = Math.floor(Math.random() * categoryMessages.length);
