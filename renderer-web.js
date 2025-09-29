@@ -24,20 +24,46 @@ async function loadData() {
         // Önce first_day_messages.json'ı yükle
         const firstDayResponse = await fetch('first_day_messages.json');
         if (firstDayResponse.ok) {
-            firstDayMessages = await firstDayResponse.json();
-            console.log('✅ İlk gün mesajları yüklendi!');
+            const text = await firstDayResponse.text();
+            if (text.startsWith('{') || text.startsWith('[')) {
+                firstDayMessages = JSON.parse(text);
+                console.log('✅ İlk gün mesajları yüklendi!');
+            } else {
+                console.warn('⚠️ first_day_messages.json HTML döndürdü, boş veri kullanılıyor');
+                firstDayMessages = [];
+            }
         }
     } catch (error) {
         console.error('❌ İlk gün mesajları yüklenemedi:', error);
+        firstDayMessages = [];
     }
 
     try {
         // Parçalanmış veri index'ini yükle
         const indexResponse = await fetch('data/index.json');
         if (indexResponse.ok) {
-            dataIndex = await indexResponse.json();
-            console.log('✅ Veri index'i yüklendi!', Object.keys(dataIndex));
-            enableCategoryCards();
+            const text = await indexResponse.text();
+            if (text.startsWith('{') || text.startsWith('[')) {
+                dataIndex = JSON.parse(text);
+                console.log('✅ Veri index'i yüklendi!', Object.keys(dataIndex));
+                enableCategoryCards();
+            } else {
+                console.warn('⚠️ index.json HTML döndürdü');
+                // Fallback: Manuel index oluştur
+                dataIndex = {
+                    romantic: { file: 'data/romantic.json', count: 7261 },
+                    funny: { file: 'data/funny.json', count: 19773 },
+                    midnight: { file: 'data/midnight.json', count: 47112 },
+                    emoji_rich: { file: 'data/emoji_rich.json', count: 6160 },
+                    goodmorning: { file: 'data/goodmorning.json', count: 2191 },
+                    goodnight: { file: 'data/goodnight.json', count: 4416 },
+                    special: { file: 'data/special.json', count: 169 },
+                    long: { file: 'data/long.json', count: 283 },
+                    general: { file: 'data/general.json', count: 227899 }
+                };
+                console.log('✅ Manuel index oluşturuldu');
+                enableCategoryCards();
+            }
         } else {
             throw new Error('Veri index bulunamadı');
         }
@@ -77,9 +103,14 @@ async function loadCategoryData(category) {
         if (dataIndex[category]) {
             const response = await fetch(dataIndex[category].file);
             if (response.ok) {
-                const data = await response.json();
-                categorizedData[category] = data;
-                return data;
+                const text = await response.text();
+                if (text.startsWith('{') || text.startsWith('[')) {
+                    const data = JSON.parse(text);
+                    categorizedData[category] = data;
+                    return data;
+                } else {
+                    console.warn(`⚠️ ${category} kategorisi HTML döndürdü`);
+                }
             }
         }
     } catch (error) {
@@ -199,6 +230,11 @@ function showPage(pageName) {
 function loadStats() {
     const container = document.getElementById('statsContainer');
 
+    if (!dataIndex || Object.keys(dataIndex).length === 0) {
+        container.innerHTML = '<div style="text-align: center; opacity: 0.7;">İstatistikler yükleniyor...</div>';
+        return;
+    }
+
     // Index'ten mesaj sayılarını hesapla
     const totalMessages = Object.values(dataIndex)
         .reduce((sum, category) => sum + (category.count || 0), 0);
@@ -224,9 +260,12 @@ function loadStats() {
 }
 
 async function showRandomStory() {
-    const categories = Object.keys(dataIndex);
-    if (categories.length === 0) return;
+    if (!dataIndex || Object.keys(dataIndex).length === 0) {
+        console.warn('⚠️ dataIndex henüz yüklenmedi');
+        return;
+    }
 
+    const categories = Object.keys(dataIndex);
     const randomCategory = categories[Math.floor(Math.random() * categories.length)];
     const categoryMessages = await loadCategoryData(randomCategory);
 
@@ -234,6 +273,8 @@ async function showRandomStory() {
         currentStoryIndex = Math.floor(Math.random() * categoryMessages.length);
         currentCategoryMessages = categoryMessages;
         displayStory(categoryMessages[currentStoryIndex]);
+    } else {
+        document.getElementById('storyContent').innerHTML = '<div style="text-align: center; opacity: 0.7;">Rastgele hikaye yüklenemedi. Lütfen kategori seçin.</div>';
     }
 }
 
