@@ -39,7 +39,7 @@ async function loadData() {
     }
 
     try {
-        // Parçalanmış veri index'ini yükle
+        // Parçalanmış veri indexini yükle
         const indexResponse = await fetch('data/index.json');
         if (indexResponse.ok) {
             const text = await indexResponse.text();
