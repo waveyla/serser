@@ -258,21 +258,52 @@ function loadStats() {
 }
 
 async function showRandomStory() {
+    // Eğer dataIndex yüklenmemişse, varsayılan indexi oluştur
     if (!dataIndex || Object.keys(dataIndex).length === 0) {
-        console.warn('⚠️ dataIndex henüz yüklenmedi');
-        return;
+        console.warn('⚠️ dataIndex henüz yüklenmedi, manuel index oluşturuluyor...');
+        dataIndex = {
+            romantic: { file: 'data/romantic.json', count: 7261 },
+            funny: { file: 'data/funny.json', count: 19773 },
+            midnight: { file: 'data/midnight.json', count: 47112 },
+            emoji_rich: { file: 'data/emoji_rich.json', count: 6160 },
+            goodmorning: { file: 'data/goodmorning.json', count: 2191 },
+            goodnight: { file: 'data/goodnight.json', count: 4416 },
+            special: { file: 'data/special.json', count: 169 },
+            long: { file: 'data/long.json', count: 283 }
+        };
     }
 
-    const categories = Object.keys(dataIndex);
-    const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-    const categoryMessages = await loadCategoryData(randomCategory);
+    // İlk olarak ilk gün mesajlarından rastgele bir tane göster
+    if (firstDayMessages && firstDayMessages.length > 0) {
+        document.getElementById('storyContent').innerHTML = '<div style="text-align: center; padding: 20px; opacity: 0.7;">Rastgele kategori yükleniyor...</div>';
 
-    if (categoryMessages && categoryMessages.length > 0) {
-        currentStoryIndex = Math.floor(Math.random() * categoryMessages.length);
-        currentCategoryMessages = categoryMessages;
-        displayStory(categoryMessages[currentStoryIndex]);
+        // Rastgele kategori seç ve yükle
+        const categories = Object.keys(dataIndex);
+        const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+
+        try {
+            const categoryMessages = await loadCategoryData(randomCategory);
+
+            if (categoryMessages && categoryMessages.length > 0) {
+                currentStoryIndex = Math.floor(Math.random() * categoryMessages.length);
+                currentCategoryMessages = categoryMessages;
+                displayStory(categoryMessages[currentStoryIndex]);
+            } else {
+                // Kategori yüklenemezse ilk gün mesajlarından göster
+                console.warn(`⚠️ ${randomCategory} yüklenemedi, ilk gün mesajı gösteriliyor`);
+                currentStoryIndex = Math.floor(Math.random() * firstDayMessages.length);
+                currentCategoryMessages = firstDayMessages;
+                displayStory(firstDayMessages[currentStoryIndex]);
+            }
+        } catch (error) {
+            console.error('❌ Kategori yükleme hatası:', error);
+            // Hata durumunda ilk gün mesajlarından göster
+            currentStoryIndex = Math.floor(Math.random() * firstDayMessages.length);
+            currentCategoryMessages = firstDayMessages;
+            displayStory(firstDayMessages[currentStoryIndex]);
+        }
     } else {
-        document.getElementById('storyContent').innerHTML = '<div style="text-align: center; opacity: 0.7;">Rastgele hikaye yüklenemedi. Lütfen kategori seçin.</div>';
+        document.getElementById('storyContent').innerHTML = '<div style="text-align: center; opacity: 0.7;">Veriler yükleniyor, lütfen bekleyin...</div>';
     }
 }
 
