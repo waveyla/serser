@@ -38,7 +38,7 @@ async function loadData() {
 
     try {
         // Parçalanmış veri indexini yükle
-        const indexResponse = await fetch('data/index.json');
+        const indexResponse = await fetch('data/a5d2k7m1.json');
         if (indexResponse.ok) {
             const text = await indexResponse.text();
             if (text.startsWith('{') || text.startsWith('[')) {
@@ -49,15 +49,15 @@ async function loadData() {
                 console.warn('⚠️ index.json HTML döndürdü');
                 // Fallback: Manuel index oluştur
                 dataIndex = {
-                    romantic: { file: 'data/romantic.json', count: 7261 },
-                    funny: { file: 'data/funny.json', count: 19773 },
-                    midnight: { file: 'data/midnight.json', count: 47112 },
-                    emoji_rich: { file: 'data/emoji_rich.json', count: 6160 },
-                    goodmorning: { file: 'data/goodmorning.json', count: 2191 },
-                    goodnight: { file: 'data/goodnight.json', count: 4416 },
-                    special: { file: 'data/special.json', count: 169 },
-                    long: { file: 'data/long.json', count: 283 },
-                    general: { file: 'data/general.json', count: 227899 }
+                    romantic: { file: 'data/p4x8w1z9.json', count: 7261 },
+                    funny: { file: 'data/m2k7s5q3.json', count: 19773 },
+                    midnight: { file: 'data/n6f9r4t8.json', count: 47112 },
+                    emoji_rich: { file: 'data/b3y2u7v1.json', count: 6160 },
+                    goodmorning: { file: 'data/l8c4h6j2.json', count: 2191 },
+                    goodnight: { file: 'data/x1m5g9k7.json', count: 4416 },
+                    special: { file: 'data/v9z3r6w8.json', count: 169 },
+                    long: { file: 'data/q4s7n2f5.json', count: 283 },
+                    general: { file: 'data/t8h1p9x3.json', count: 227899 }
                 };
                 console.log('✅ Manuel index oluşturuldu');
                 enableCategoryCards();
@@ -262,14 +262,14 @@ async function showRandomStory() {
     if (!dataIndex || Object.keys(dataIndex).length === 0) {
         console.warn('⚠️ dataIndex henüz yüklenmedi, manuel index oluşturuluyor...');
         dataIndex = {
-            romantic: { file: 'data/romantic.json', count: 7261 },
-            funny: { file: 'data/funny.json', count: 19773 },
-            midnight: { file: 'data/midnight.json', count: 47112 },
-            emoji_rich: { file: 'data/emoji_rich.json', count: 6160 },
-            goodmorning: { file: 'data/goodmorning.json', count: 2191 },
-            goodnight: { file: 'data/goodnight.json', count: 4416 },
-            special: { file: 'data/special.json', count: 169 },
-            long: { file: 'data/long.json', count: 283 }
+            romantic: { file: 'data/p4x8w1z9.json', count: 7261 },
+            funny: { file: 'data/m2k7s5q3.json', count: 19773 },
+            midnight: { file: 'data/n6f9r4t8.json', count: 47112 },
+            emoji_rich: { file: 'data/b3y2u7v1.json', count: 6160 },
+            goodmorning: { file: 'data/l8c4h6j2.json', count: 2191 },
+            goodnight: { file: 'data/x1m5g9k7.json', count: 4416 },
+            special: { file: 'data/v9z3r6w8.json', count: 169 },
+            long: { file: 'data/q4s7n2f5.json', count: 283 }
         };
     }
 
