@@ -290,19 +290,34 @@
         padding: 20px;
     }
 
+    .birthday-modal {
+        padding: 10px;
+    }
+
     .birthday-content {
-        padding: 30px;
-        max-width: 90vw;
+        padding: 20px;
+        max-width: 95vw;
+        max-height: 90vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .birthday-title {
-        font-size: 2em;
-        margin-bottom: 20px;
+        font-size: 1.5em;
+        margin-bottom: 15px;
     }
 
     .birthday-message {
-        font-size: 1em;
-        line-height: 1.6;
+        font-size: 0.9em;
+        line-height: 1.5;
+    }
+
+    .close-birthday-btn {
+        width: 35px;
+        height: 35px;
+        top: 15px;
+        right: 15px;
+        font-size: 1.2em;
     }
 
     /* Touch scrolling */
