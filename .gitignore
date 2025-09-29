@@ -2,6 +2,3 @@ node_modules/
 dist/
 categorized_data.json
 result.json
-first_day_messages.json
-data/
-*.json
