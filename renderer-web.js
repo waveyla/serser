@@ -20,23 +20,21 @@ const categoryNames = {
 
 // Web için veri yükleme
 async function loadData() {
-    try {
-        // Önce first_day_messages.json'ı yükle
-        const firstDayResponse = await fetch('first_day_messages.json');
-        if (firstDayResponse.ok) {
-            const text = await firstDayResponse.text();
-            if (text.startsWith('{') || text.startsWith('[')) {
-                firstDayMessages = JSON.parse(text);
-                console.log('✅ İlk gün mesajları yüklendi!');
-            } else {
-                console.warn('⚠️ first_day_messages.json HTML döndürdü, boş veri kullanılıyor');
-                firstDayMessages = [];
-            }
-        }
-    } catch (error) {
-        console.error('❌ İlk gün mesajları yüklenemedi:', error);
-        firstDayMessages = [];
-    }
+    // İlk gün mesajları (hardcode) - GitHub Pages sorununu önlemek için
+    firstDayMessages = [
+        {"date": "2017-09-30 19:04:21", "sender": "Serkan Genel", "content": "Gamzeni görünce bir dörtlük geldi aklıma", "platform": "Instagram"},
+        {"date": "2017-09-30 19:04:24", "sender": "Serkan Genel", "content": ":)", "platform": "Instagram"},
+        {"date": "2017-09-30 19:04:57", "sender": "Serkan Genel", "content": "Büşra bahsetti mi bilmiyorum ama", "platform": "Instagram"},
+        {"date": "2017-09-30 19:05:08", "sender": "Serkan Genel", "content": "Tanışmak isterim. .", "platform": "Instagram"},
+        {"date": "2017-09-30 19:05:52", "sender": "Serkan Genel", "content": "Ama bu lütfen instagramda olmasın.. burdan yazmak eziyet gibi", "platform": "Instagram"},
+        {"date": "2017-09-30 19:29:13", "sender": "seren genel", "content": "Pekii tanışalım, tanışmakta sıkıntı olmaz sanırım :) Hangi dörtlük bir de merak uyandırdı", "platform": "Instagram"},
+        {"date": "2017-09-30 20:12:59", "sender": "Serkan Genel", "content": "Vereyim telefon numaramı ya da sen ver", "platform": "Instagram"},
+        {"date": "2017-09-30 21:54:26", "sender": "seren genel", "content": "Tamam", "platform": "Instagram"},
+        {"date": "2017-09-30 21:54:48", "sender": "seren genel", "content": "0546481686", "platform": "Instagram"},
+        {"date": "2017-09-30 21:54:56", "sender": "seren genel", "content": "Yanlış oldu", "platform": "Instagram"},
+        {"date": "2017-09-30 21:55:11", "sender": "seren genel", "content": "05346481686", "platform": "Instagram"}
+    ];
+    console.log('✅ İlk gün mesajları yüklendi (hardcode)!');
 
     try {
         // Parçalanmış veri indexini yükle
