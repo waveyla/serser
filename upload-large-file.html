@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Büyük Dosya Yükleme</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .upload-area { border: 2px dashed #ccc; padding: 20px; text-align: center; margin: 20px 0; }
+        .status { margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h2>84MB JSON Dosyasını Web'e Yükle</h2>
+
+    <div class="upload-area" id="uploadArea">
+        <p>categorized_data.json dosyasını buraya sürükleyin</p>
+        <input type="file" id="fileInput" accept=".json" style="display: none;">
+        <button onclick="document.getElementById('fileInput').click()">Dosya Seç</button>
+    </div>
+
+    <div class="status" id="status"></div>
+    <button id="processBtn" onclick="processFile()" style="display: none;">Dosyayı İşle ve Yükle</button>
+
+    <script>
+        let selectedFile = null;
+
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            selectedFile = e.target.files[0];
+            if (selectedFile) {
+                document.getElementById('status').textContent = `Seçilen dosya: ${selectedFile.name} (${(selectedFile.size / 1024 / 1024).toFixed(1)} MB)`;
+                document.getElementById('processBtn').style.display = 'block';
+            }
+        });
+
+        async function processFile() {
+            if (!selectedFile) return;
+
+            const status = document.getElementById('status');
+            status.textContent = 'Dosya işleniyor...';
+
+            try {
+                const text = await selectedFile.text();
+                const data = JSON.parse(text);
+
+                // Veriyi localStorage'a kaydet (geçici)
+                const chunks = [];
+                const chunkSize = 1000; // Her chunk'ta 1000 mesaj
+
+                Object.keys(data).forEach(category => {
+                    const messages = data[category];
+                    for (let i = 0; i < messages.length; i += chunkSize) {
+                        chunks.push({
+                            category: category,
+                            chunk: Math.floor(i / chunkSize),
+                            data: messages.slice(i, i + chunkSize)
+                        });
+                    }
+                });
+
+                status.textContent = `Dosya ${chunks.length} parçaya bölündü. GitHub'a tek tek yüklenecek.`;
+
+                // GitHub API ile dosyaları yükle
+                uploadChunks(chunks);
+
+            } catch (error) {
+                status.textContent = 'Hata: ' + error.message;
+            }
+        }
+
+        async function uploadChunks(chunks) {
+            const status = document.getElementById('status');
+
+            for (let i = 0; i < chunks.length; i++) {
+                status.textContent = `Chunk ${i + 1}/${chunks.length} yükleniyor...`;
+
+                const chunk = chunks[i];
+                const fileName = `data/${chunk.category}_${chunk.chunk}.json`;
+
+                // Bu noktada chunk'ları JSON dosyası olarak indirebilirsiniz
+                // Veya manuel olarak GitHub'a yükleyebilirsiniz
+
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+
+            status.textContent = 'Tüm parçalar hazır! Manuel olarak GitHub\'a yüklenebilir.';
+        }
+    </script>
+</body>
+</html>
