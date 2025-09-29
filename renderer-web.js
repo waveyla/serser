@@ -192,7 +192,7 @@ function createMessageElement(msg) {
             <span style="font-weight: 600;">${msg.sender}</span>
             <span style="opacity: 0.7;">${msg.platform} • ${msg.date}</span>
         </div>
-        <div class="message-content">${msg.text}</div>
+        <div class="message-content">${msg.content || msg.text || 'Mesaj içeriği bulunamadı'}</div>
     `;
     return messageDiv;
 }
@@ -290,7 +290,7 @@ function displayStory(message) {
             <span style="opacity: 0.8;">${message.platform}</span> •
             <span style="opacity: 0.8;">${message.date}</span>
         </div>
-        <div style="font-size: 1rem; line-height: 1.6;">${message.text}</div>
+        <div style="font-size: 1rem; line-height: 1.6;">${message.content || message.text || 'Mesaj içeriği bulunamadı'}</div>
     `;
 
     counter.textContent = `${currentStoryIndex + 1} / ${currentCategoryMessages.length}`;
@@ -353,9 +353,9 @@ document.addEventListener('DOMContentLoaded', async function() {
             <div class="message-item">
                 <div class="message-header">
                     <span style="font-weight: 600;">${msg.sender}</span>
-                    <span style="opacity: 0.7;">${msg.time}</span>
+                    <span style="opacity: 0.7;">${msg.platform} • ${msg.date}</span>
                 </div>
-                <div class="message-content">${msg.text}</div>
+                <div class="message-content">${msg.content || msg.text || 'Mesaj içeriği bulunamadı'}</div>
             </div>
         `).join('');
 
@@ -372,7 +372,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
 
         const filtered = currentCategoryMessages.filter(msg =>
-            msg.text.toLowerCase().includes(searchTerm) ||
+            (msg.content || msg.text || '').toLowerCase().includes(searchTerm) ||
             msg.sender.toLowerCase().includes(searchTerm)
         );
 
