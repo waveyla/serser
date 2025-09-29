@@ -1,28 +1,3 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(pip install:*)",
-      "Bash(python:*)",
-      "Read(//c/Users/PC/Desktop/**)",
-      "Bash(dir \"C:\\Users\\PC\\Desktop\\Yeni klasör (2)\\whatsapp_extracted\")",
-      "Bash(npm install)",
-      "Bash(npm start)",
-      "Bash(taskkill:*)",
-      "Bash(del index.html)",
-      "Bash(move new_index.html index.html)",
-      "Bash(copy:*)",
-      "Bash(dir:*)",
-      "Bash(powershell:*)",
-      "Bash(npm install:*)",
-      "Bash(npm run dist:*)",
-      "Bash(asar list:*)",
-      "Bash(start \"\" \"C:\\Users\\PC\\Desktop\\Yeni klasör (2)\\dist\\win-unpacked\\Bizim Hikayemiz.exe\")",
-      "Bash(findstr:*)",
-      "Bash(ngrok:*)",
-      "Bash(del:*)",
-      "WebFetch(domain:www.trendyol.com)"
-    ],
-    "deny": [],
-    "ask": []
-  }
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:e82f80adc02f58b714fedb50719e49bb7a1ee3f3c2a342d8a83b39931dca4f4b
+size 788

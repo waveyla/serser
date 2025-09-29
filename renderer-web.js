@@ -43,36 +43,13 @@ async function loadData() {
             console.log('✅ Kategorize veriler yüklendi!', Object.keys(categorizedData));
             enableCategoryCards();
         } else {
-            // Büyük dosya yok, demo veri kullan
-            useDemoData();
+            throw new Error('categorized_data.json bulunamadı');
         }
     } catch (error) {
         console.error('❌ Ana veriler yüklenemedi:', error);
-        useDemoData();
+        showError('Veriler yüklenemedi. Lütfen sayfayı yenileyin.');
+        disableCategoryCards();
     }
-}
-
-// Demo veri (84MB dosya olmadığında)
-function useDemoData() {
-    categorizedData = {
-        romantic: [
-            {sender: "Seren", text: "Seni çok seviyorum canım 💕", date: "2017-09-30", platform: "Instagram"},
-            {sender: "Serkan", text: "Ben de seni çok seviyorum bitiş ❤️", date: "2017-09-30", platform: "Instagram"},
-            {sender: "Seren", text: "Sensiz yapamam 🥺", date: "2017-10-01", platform: "Telegram"},
-            {sender: "Serkan", text: "Ben de canım, hep beraber olacağız 💍", date: "2017-10-01", platform: "Telegram"}
-        ],
-        funny: [
-            {sender: "Seren", text: "Çok komiksin 😂😂😂", date: "2017-10-02", platform: "Telegram"},
-            {sender: "Serkan", text: "Sen daha komiksin 🤣", date: "2017-10-02", platform: "Telegram"}
-        ],
-        midnight: [
-            {sender: "Seren", text: "Gece gece ne yapıyorsun? 🌙", date: "2017-10-03", platform: "WhatsApp"},
-            {sender: "Serkan", text: "Seni düşünüyorum tabii ki ✨", date: "2017-10-03", platform: "WhatsApp"}
-        ]
-    };
-
-    console.log('📝 Demo veriler yüklendi (84MB dosya bulunamadı)');
-    enableCategoryCards();
 }
 
 function enableCategoryCards() {
