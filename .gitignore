@@ -1,0 +1,4 @@
+node_modules/
+dist/
+categorized_data.json
+result.json

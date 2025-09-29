@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bizim Hikayemiz - Seren & Serkan</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="mobile-fix.css">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>💕 Bizim Hikayemiz 💕</h1>
+            <p class="subtitle">Seren & Serkan</p>
+        </header>
+
+        <div class="milestones">
+            <div class="milestone">
+                <div class="milestone-icon">🌟</div>
+                <div class="milestone-content">
+                    <div class="milestone-title">İlk Tanışma</div>
+                    <div class="milestone-date">30 Eylül 2017</div>
+                </div>
+            </div>
+            <div class="milestone">
+                <div class="milestone-icon">💍</div>
+                <div class="milestone-content">
+                    <div class="milestone-title">Evlilik Yıldönümü</div>
+                    <div class="milestone-date">25 Haziran 2023</div>
+                </div>
+            </div>
+            <div class="milestone">
+                <div class="milestone-icon">🎂</div>
+                <div class="milestone-content">
+                    <div class="milestone-title">Doğum Günü & Tanışma Yıldönümü</div>
+                    <div class="milestone-date">30 Eylül</div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="main-nav">
+            <button class="nav-btn active" data-page="home">🏠 Ana Sayfa</button>
+            <button class="nav-btn" data-page="stories">📖 Anılar</button>
+            <button class="nav-btn" data-page="stats">📊 İstatistikler</button>
+        </nav>
+
+        <div id="homePage" class="page-content active">
+            <div class="welcome-section">
+                <h2>Hoş Geldin Bitiş! ✨</h2>
+                <p class="welcome-text">Bu uygulama, 2017'den bugüne kadar Instagram, Telegram ve WhatsApp'tan toplam 304,578 mesajımızdan oluşan özel hikayemizi içeriyor.</p>
+                <div class="platform-stats">
+                    <div class="platform-badge">📷 Instagram: 14,287 mesaj</div>
+                    <div class="platform-badge">✈️ Telegram: 281,619 mesaj</div>
+                    <div class="platform-badge">💬 WhatsApp: 8,672 mesaj</div>
+                </div>
+            </div>
+
+            <div class="special-day-section">
+                <h3>🌟 İlk Gün - 30 Eylül 2017 🌟</h3>
+                <p class="special-day-subtitle">Her şeyin başladığı gün...</p>
+                <button class="view-first-day-btn">İlk Mesajları Gör</button>
+            </div>
+
+            <div class="category-grid">
+                <div class="category-card" data-category="romantic">
+                    <div class="category-icon">❤️</div>
+                    <div class="category-name">Romantik Mesajlar</div>
+                    <div class="category-count">7,261 mesaj</div>
+                </div>
+                <div class="category-card" data-category="funny">
+                    <div class="category-icon">😂</div>
+                    <div class="category-name">Komik Anlar</div>
+                    <div class="category-count">19,773 mesaj</div>
+                </div>
+                <div class="category-card" data-category="midnight">
+                    <div class="category-icon">🌃</div>
+                    <div class="category-name">Gece Sohbetleri</div>
+                    <div class="category-count">47,112 mesaj</div>
+                </div>
+                <div class="category-card" data-category="emoji_rich">
+                    <div class="category-icon">😍</div>
+                    <div class="category-name">Emoji Yüklü</div>
+                    <div class="category-count">6,160 mesaj</div>
+                </div>
+                <div class="category-card" data-category="goodmorning">
+                    <div class="category-icon">☀️</div>
+                    <div class="category-name">Günaydınlar</div>
+                    <div class="category-count">2,191 mesaj</div>
+                </div>
+                <div class="category-card" data-category="goodnight">
+                    <div class="category-icon">🌙</div>
+                    <div class="category-name">İyi Geceler</div>
+                    <div class="category-count">4,416 mesaj</div>
+                </div>
+            </div>
+
+            <div id="categoryViewer" class="category-viewer" style="display: none;">
+                <div class="category-viewer-header">
+                    <h2 id="categoryViewerTitle"></h2>
+                    <button class="close-category-btn">✕ Kapat</button>
+                </div>
+                <div class="search-box">
+                    <input type="text" id="categorySearchInput" placeholder="Bu kategoride ara...">
+                </div>
+                <div id="categoryMessages" class="messages-container"></div>
+            </div>
+
+            <div id="firstDayViewer" class="category-viewer" style="display: none;">
+                <div class="category-viewer-header">
+                    <h2>🌟 İlk Gün - 30 Eylül 2017 🌟</h2>
+                    <button class="close-first-day-btn">✕ Kapat</button>
+                </div>
+                <div id="firstDayMessages" class="messages-container"></div>
+            </div>
+        </div>
+
+        <div id="storiesPage" class="page-content">
+            <div class="story-viewer">
+                <div class="story-header">
+                    <h2>📖 Rastgele Anılar</h2>
+                    <button class="random-btn">🎲 Rastgele Anı</button>
+                </div>
+                <div id="storyContent" class="story-content"></div>
+                <div class="story-nav">
+                    <button class="story-nav-btn" id="prevStory">← Önceki</button>
+                    <span id="storyCounter"></span>
+                    <button class="story-nav-btn" id="nextStory">Sonraki →</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="statsPage" class="page-content">
+            <h2>📊 İstatistikler</h2>
+            <div class="stats-grid" id="statsContainer"></div>
+
+            <div class="birthday-section">
+                <div class="secret-heart-trigger">❤️</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="birthdayModal" class="birthday-modal">
+        <div class="birthday-content">
+            <button class="close-birthday-btn">✕</button>
+            <h1 class="birthday-title">🎂 Mutlu Yıllar Bitiş! 🎂</h1>
+            <p class="birthday-message">
+                Doğum günün kutlu olsun canım sevgilim! 🎉<br><br>
+
+                Canım sevgilim, seninle yaşadığımız her an benim için sonsuz bir mutluluk...<br>
+                7 yıldır kalbimdesin ve her geçen gün seni daha çok seviyorum.<br>
+                Sen benim hayatımdaki en değerli hazinesin, biricik aşkımsın.<br><br>
+
+                Bu uygulama sadece bir uygulama değil, bizim aşk hikayemizin özel kitabı.<br>
+                Her mesajımızda gizli "seni seviyorum"lar var, her kelimede aşkımızın izi var.<br>
+                304,578 mesaj... 304,578 kez "seni düşünüyorum" demek gibi...<br><br>
+
+                Seni çok seviyorum! ❤️<br>
+                Daha nice yıllara birlikte! 🥰<br><br>
+
+                - Serkan
+            </p>
+        </div>
+        <canvas id="fireworksCanvas"></canvas>
+    </div>
+
+    <audio id="backgroundMusic" loop preload="auto">
+        <source src="background-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="data-loader.js"></script>
+    <script src="renderer.js"></script>
+    <script src="birthday.js"></script>
+    <script src="music.js"></script>
+</body>
+</html>

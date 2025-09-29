@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip install:*)",
+      "Bash(python:*)",
+      "Read(//c/Users/PC/Desktop/**)",
+      "Bash(dir \"C:\\Users\\PC\\Desktop\\Yeni klasör (2)\\whatsapp_extracted\")",
+      "Bash(npm install)",
+      "Bash(npm start)",
+      "Bash(taskkill:*)",
+      "Bash(del index.html)",
+      "Bash(move new_index.html index.html)",
+      "Bash(copy:*)",
+      "Bash(dir:*)",
+      "Bash(powershell:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run dist:*)",
+      "Bash(asar list:*)",
+      "Bash(start \"\" \"C:\\Users\\PC\\Desktop\\Yeni klasör (2)\\dist\\win-unpacked\\Bizim Hikayemiz.exe\")",
+      "Bash(findstr:*)",
+      "Bash(ngrok:*)",
+      "Bash(del:*)",
+      "WebFetch(domain:www.trendyol.com)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -1,0 +1,32 @@
+/* MOBİL DÜZELTME - MEVCUT KODU BOZMAZ */
+@media screen and (max-width: 768px) {
+    html, body {
+        height: 100%;
+        overflow-x: hidden !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .app-container {
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
+        overflow-x: hidden !important;
+    }
+
+    /* iOS Safari fix */
+    .main-nav {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    /* Viewport height fix */
+    .page-content {
+        max-height: calc(100vh - 200px);
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Touch scrolling */
+    * {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: pan-y;
+    }
+}
