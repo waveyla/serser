@@ -1,4 +1,4 @@
 node_modules/
 dist/
-categorized_data.json
-result.json
+temp_data.json
+build_cache.json
