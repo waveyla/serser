@@ -1,4 +1,50 @@
 /* MOBİL DÜZELTME - MEVCUT KODU BOZMAZ */
+
+/* Eksik mesaj stilleri - renderer-web.js için */
+.message-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.message-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(5px);
+    box-shadow: 0 5px 20px rgba(255, 107, 107, 0.2);
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.message-content {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    word-wrap: break-word;
+}
+
+.stat-card .stat-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #ffd93d;
+}
+
+.stat-card .stat-value {
+    font-size: 2em;
+    font-weight: bold;
+    color: #fff;
+}
+
 @media screen and (max-width: 768px) {
     html, body {
         height: 100%;
@@ -10,23 +56,269 @@
         min-height: 100vh;
         min-height: -webkit-fill-available;
         overflow-x: hidden !important;
+        padding: 10px;
     }
 
-    /* iOS Safari fix */
+    .app-header {
+        padding: 20px 10px;
+        margin-bottom: 20px;
+    }
+
+    .app-header h1 {
+        font-size: 2.2em;
+    }
+
+    .subtitle {
+        font-size: 1.2em;
+    }
+
+    .milestones {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .milestone {
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .milestone-icon {
+        font-size: 2em;
+    }
+
+    .milestone-title {
+        font-size: 1em;
+    }
+
+    .milestone-date {
+        font-size: 0.9em;
+    }
+
     .main-nav {
         padding-bottom: env(safe-area-inset-bottom);
+        gap: 10px;
     }
 
-    /* Viewport height fix */
-    .page-content {
-        max-height: calc(100vh - 200px);
-        overflow-y: auto !important;
+    .nav-btn {
+        min-width: 120px;
+        padding: 12px 15px;
+        font-size: 0.9em;
+    }
+
+    .welcome-section {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .welcome-section h2 {
+        font-size: 1.8em;
+    }
+
+    .welcome-text {
+        font-size: 1em;
+    }
+
+    .platform-stats {
+        gap: 10px;
+    }
+
+    .platform-badge {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+
+    .special-day-section {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .special-day-section h3 {
+        font-size: 1.5em;
+    }
+
+    .special-day-subtitle {
+        font-size: 1em;
+    }
+
+    .view-first-day-btn {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+
+    .category-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .category-card {
+        padding: 20px;
+    }
+
+    .category-icon {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+    }
+
+    .category-name {
+        font-size: 1.1em;
+        margin-bottom: 8px;
+    }
+
+    .category-count {
+        font-size: 0.9em;
+    }
+
+    .category-viewer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1000;
+        background: rgba(26, 26, 46, 0.98);
+        padding: 20px;
+        margin: 0;
+        border-radius: 0;
+        backdrop-filter: blur(20px);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .category-viewer-header {
+        flex-shrink: 0;
+        margin-bottom: 15px;
+    }
+
+    .category-viewer-header h2 {
+        font-size: 1.5em;
+    }
+
+    .close-category-btn,
+    .close-first-day-btn {
+        padding: 8px 15px;
+        font-size: 1em;
+    }
+
+    .search-box {
+        flex-shrink: 0;
+        margin-bottom: 15px;
+    }
+
+    .search-box input {
+        padding: 12px 15px;
+        font-size: 0.9em;
+    }
+
+    .messages-container {
+        flex: 1;
+        max-height: none;
+        overflow-y: auto;
         -webkit-overflow-scrolling: touch;
+        padding-right: 5px;
+    }
+
+    .message-item {
+        padding: 15px;
+        margin-bottom: 12px;
+    }
+
+    .message-header {
+        font-size: 0.9em;
+        margin-bottom: 8px;
+    }
+
+    .message-content {
+        font-size: 1em;
+        line-height: 1.5;
+    }
+
+    .story-viewer {
+        padding: 20px;
+    }
+
+    .story-header {
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .story-header h2 {
+        font-size: 1.5em;
+    }
+
+    .random-btn {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+
+    .story-content {
+        min-height: 300px;
+        padding: 20px;
+    }
+
+    .story-nav {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .story-nav-btn {
+        padding: 10px 25px;
+        font-size: 1em;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .stat-card {
+        padding: 20px;
+    }
+
+    .stat-card .stat-title {
+        font-size: 1em;
+    }
+
+    .stat-card .stat-value {
+        font-size: 1.8em;
+    }
+
+    .birthday-section {
+        margin-top: 40px;
+        padding: 20px;
+    }
+
+    .birthday-content {
+        padding: 30px;
+        max-width: 90vw;
+    }
+
+    .birthday-title {
+        font-size: 2em;
+        margin-bottom: 20px;
+    }
+
+    .birthday-message {
+        font-size: 1em;
+        line-height: 1.6;
     }
 
     /* Touch scrolling */
     * {
         -webkit-tap-highlight-color: transparent;
         touch-action: pan-y;
+    }
+
+    /* iOS Safari viewport fix */
+    @supports (-webkit-touch-callout: none) {
+        html, body {
+            height: -webkit-fill-available;
+        }
+
+        .app-container {
+            min-height: -webkit-fill-available;
+        }
     }
 }
