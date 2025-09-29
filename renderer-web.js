@@ -45,7 +45,7 @@ async function loadData() {
             const text = await indexResponse.text();
             if (text.startsWith('{') || text.startsWith('[')) {
                 dataIndex = JSON.parse(text);
-                console.log('✅ Veri index'i yüklendi!', Object.keys(dataIndex));
+                console.log('✅ Veri indexi yüklendi!', Object.keys(dataIndex));
                 enableCategoryCards();
             } else {
                 console.warn('⚠️ index.json HTML döndürdü');
